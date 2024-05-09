@@ -1,17 +1,12 @@
-const AWS = require('aws-sdk');
-const fs = require('fs');
-
+const AWS = require("aws-sdk");
+const fs = require("fs");
 AWS.config.update({
-    region: 'us-east-2',
+    region: "us-east-2",
 });
-const dynamodb = new AWS.DynamoDB.DocumentClient({
-    apiVersion: '2012-08-10',
-});
+const dynamodb = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10" });
 
-console.log('Importing thoughts into DynamoDB. Please wait.');
-const allUsers = JSON.parse(
-    fs.readFileSync('../server/seed/users.json', 'utf8'),
-);
+console.log("Importing thoughts into DynamoDB. Please wait.");
+const allUsers = JSON.parse(fs.readFileSync('./server/seed/users.json', 'utf8'));
 
 allUsers.forEach(user => {
     const params = {
@@ -22,7 +17,6 @@ allUsers.forEach(user => {
             "thought": user.thought
         }
     };
-
     dynamodb.put(params, (err, data) => {
         if (err) {
             console.error("Unable to add thought", user.username, ". Error JSON:", JSON.stringify(err, null, 2));
@@ -30,4 +24,4 @@ allUsers.forEach(user => {
             console.log("PutItem succeeded:", user.username);
         }
     });
-});
+})
