@@ -53,18 +53,15 @@ router.get('/users/:username', (req, res) => {
 
 // Create new user at /api/users
 router.post("/users", (req, res) => {
-    // set the params object
     const params = {
         TableName: table,
         Item: {
             "username": req.body.username,
-            // when the user posts the thought
             "createdAt": Date.now(),
             "thought": req.body.thought,
         },
     };
-    // database call
-    // using PUT method to insert data into the table
+
     dynamodb.put(params, (err, data) => {
         if (err) {
             console.error(
