@@ -13,3 +13,7 @@ const storage = multer.memoryStorage({
 });
 
 const upload = multer({ storage }).single('image');
+
+// POST - Image Upload
+router.post('/image-upload', upload, (req, res) => {
+});
