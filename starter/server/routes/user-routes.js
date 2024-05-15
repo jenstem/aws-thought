@@ -8,12 +8,11 @@ const awsConfig = {
 AWS.config.update(awsConfig);
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const table = "Thoughts";
-// Get all users
+
 router.get("/users", (req, res) => {
     const params = {
         TableName: table,
     };
-
     dynamodb.scan(params, (err, data) => {
         if (err) {
             res.status(500).json(err);
@@ -22,7 +21,7 @@ router.get("/users", (req, res) => {
         }
     });
 });
-// Get all thoughts by a specific user
+
 router.get('/users/:username', (req, res) => {
     console.log(`Querying for thought(s) from ${req.params.username}.`);
     const params = {
@@ -62,7 +61,6 @@ router.post("/users", (req, res) => {
             "image": req.body.image
         },
     };
-
     dynamodb.put(params, (err, data) => {
         if (err) {
             console.error(

@@ -29,7 +29,6 @@ const ThoughtForm = () => {
       }
     };
     postImage();
-    // ...
   };
 
   // update state based on form input changes
